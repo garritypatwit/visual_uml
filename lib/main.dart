@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Visual UML',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Visual UML'),
+    );
+  }
+}
+
+class Component extends StatelessWidget {
+  const Component({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Draggable(
+      feedback: SizedBox(height: 100, width: 100, child: DecoratedBox(decoration: BoxDecoration(color: Colors.purple) , child: Center(child: Text('test')))),
+      child: SizedBox(height: 100, child: DecoratedBox(decoration: BoxDecoration(color: Colors.purple) , child: Center(child: Text('test')))),
+    );
+  }
+}
+
+class Sequence extends StatelessWidget {
+  const Sequence({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LongPressDraggable(
+      feedback: const SizedBox(
+        width: 90,
+        height: 90,
+        child: DecoratedBox(decoration: BoxDecoration(color: Colors.green)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 100,
+            color: Colors.blueGrey.shade400,
+          ),
+          Container(
+            width: 20,
+            color: Colors.blueGrey,
+          )
+        ],
+      ),
+    );
+  }
+} 
+
+class Diagram extends StatefulWidget {
+  const Diagram({super.key});
+
+  @override
+  State<Diagram> createState() => _DiagramState();
+}
+
+class _DiagramState extends State<Diagram> {
+  final List<Widget> a = [const Sequence(), const Sequence()];
+  final ScrollController _controller = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      thumbVisibility: true,
+      controller: _controller,
+      child: ListView.builder(
+        controller: _controller,
+        scrollDirection: Axis.horizontal,
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return a[index%2];
+        },
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Widget> b = [Component()];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: ListView.builder(
+              itemCount: b.length,
+              itemBuilder: (context, index) {
+                return b[index];
+              },
+            ),
+          ),
+          const Expanded(
+            flex: 4,
+            child: Diagram(),
+          ),
+        ],
+      ),
+    );
+  }
+}
