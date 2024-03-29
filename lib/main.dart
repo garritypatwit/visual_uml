@@ -84,6 +84,13 @@ class _DiagramState extends State<Diagram> {
   final List<Widget> a = [];
   final ScrollController _controller = ScrollController();
 
+  void _addItem({
+    required String str
+  }) {
+    setState(() {
+      a.add(Sequence(parent: this));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
