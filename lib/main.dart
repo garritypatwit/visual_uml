@@ -88,7 +88,7 @@ class _DiagramState extends State<Diagram> {
     required String str
   }) {
     setState(() {
-      a.add(Sequence(parent: this));
+
     });
   }
 
