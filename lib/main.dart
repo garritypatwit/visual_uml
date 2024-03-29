@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const VisualUML());
+}
+
+class BackendBloc extends Cubit<String> {
+  BackendBloc() : super('');
+
+  Future<void> fetchData() async {
+    final response = await http.get(Uri.parse('http://localhost:5000/api/data'));
+    if (response.statusCode == 200) {
+      emit(response.body);
+    } else {
+      emit('Failed to fetch data');
+    }
+  }
 }
 
 class VisualUML extends StatelessWidget {
@@ -84,13 +99,6 @@ class _DiagramState extends State<Diagram> {
   final List<Widget> a = [];
   final ScrollController _controller = ScrollController();
 
-  void _addItem({
-    required String str
-  }) {
-    setState(() {
-      a.add(Sequence(parent: this));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,3 +169,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
