@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const VisualUML());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class VisualUML extends StatelessWidget {
+  const VisualUML({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class Component extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Draggable(
+      data: "test",
       feedback: SizedBox(height: 100, width: 100, child: DecoratedBox(decoration: BoxDecoration(color: Colors.purple) , child: Center(child: Text('test')))),
       child: SizedBox(height: 100, child: DecoratedBox(decoration: BoxDecoration(color: Colors.purple) , child: Center(child: Text('test')))),
     );
@@ -33,7 +34,9 @@ class Component extends StatelessWidget {
 }
 
 class Sequence extends StatelessWidget {
-  const Sequence({super.key});
+  const Sequence({super.key, required this.parent});
+
+  final Diagram parent;
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +52,21 @@ class Sequence extends StatelessWidget {
             width: 100,
             color: Colors.blueGrey.shade400,
           ),
-          Container(
-            width: 20,
-            color: Colors.blueGrey,
-          )
+          DragTarget <Widget>(
+            builder: (
+              BuildContext context,
+              List<dynamic> accepted,
+              List<dynamic> rejected,
+            ) {
+              return Container(
+                width: 20,
+                color: Colors.blueGrey,
+              );
+            },
+            onAcceptWithDetails: (details) {
+              
+            },
+          ),
         ],
       ),
     );
@@ -67,22 +81,43 @@ class Diagram extends StatefulWidget {
 }
 
 class _DiagramState extends State<Diagram> {
-  final List<Widget> a = [const Sequence(), const Sequence()];
+  final List<Widget> a = [];
   final ScrollController _controller = ScrollController();
+
+  void _addItem({
+    required String str
+  }) {
+    setState(() {
+      a.add(Sequence(parent: this));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      thumbVisibility: true,
-      controller: _controller,
-      child: ListView.builder(
-        controller: _controller,
-        scrollDirection: Axis.horizontal,
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return a[index%2];
-        },
-      ),
+    return DragTarget<String>(
+      builder: (
+        BuildContext context,
+        List<dynamic> accepted,
+        List<dynamic> rejected,
+      ) {
+        return Scrollbar(
+          thumbVisibility: true,
+          controller: _controller,
+          child: ListView.builder(
+            controller: _controller,
+            scrollDirection: Axis.horizontal,
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return a[index%2];
+            },
+          ),
+        );
+      },
+      onAcceptWithDetails: (details) {
+        setState(() {
+          print(details);
+        });
+      },
     );
   }
 }
