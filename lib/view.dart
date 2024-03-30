@@ -16,6 +16,16 @@ class DiagramView extends StatefulWidget {
 class _DiagramViewState extends State<DiagramView> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ReorderableListView.builder(
+      itemCount: 0,
+      itemBuilder: (BuildContext context, int index) {
+        return Container();
+      },
+      onReorder: (int oldIndex, int newIndex) {
+        setState(() {
+          
+        });
+      }
+    );
   }
 }
