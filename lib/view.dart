@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widget_arrows/widget_arrows.dart';
 import 'controller.dart';
 
 class DiagramView extends StatefulWidget {
@@ -16,16 +17,21 @@ class DiagramView extends StatefulWidget {
 class _DiagramViewState extends State<DiagramView> {
   @override
   Widget build(BuildContext context) {
-    return ReorderableListView.builder(
-      itemCount: 0,
-      itemBuilder: (BuildContext context, int index) {
-        return Container();
-      },
-      onReorder: (int oldIndex, int newIndex) {
-        setState(() {
-          
-        });
-      }
+    return Stack(
+      children: [
+        ReorderableListView.builder(
+          itemCount: widget.controller.lifelineCount(),
+          itemBuilder: (BuildContext context, int index) {
+            final lifeline = widget.controller.getLifeline(index);
+            return Container();
+          },
+          onReorder: (int oldIndex, int newIndex) {
+            setState(() {
+              
+            });
+          }
+        ),
+      ]
     );
   }
 }
