@@ -23,12 +23,12 @@ class DiagramController {
     return diagram.lifelines[index];
   }
   void reorderLifelines(int oldIndex, int newIndex ){
-      if (oldIndex < newIndex) {
-    newIndex -= 1;
-  }
-  final Lifeline item = diagram.lifelines.removeAt(oldIndex);
-  diagram.lifelines.insert(newIndex, item );
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
     }
+    final Lifeline item = diagram.lifelines.removeAt(oldIndex);
+    diagram.lifelines.insert(newIndex, item );
+  }
 
   void addConnection(int srcIndex, int destIndex) {
     diagram.connections.add(Connection(src: diagram.lifelines[srcIndex], dest: diagram.lifelines[destIndex]));
@@ -52,8 +52,8 @@ class DiagramController {
   void reorderConnections(int oldIndex, int newIndex ){
     if (oldIndex < newIndex) {
       newIndex -= 1;
-  }
-  final Connection item = diagram.connections.removeAt(oldIndex);
-  diagram.connections.insert(newIndex, item);
+    }
+    final Connection item = diagram.connections.removeAt(oldIndex);
+    diagram.connections.insert(newIndex, item);
   }
 }
