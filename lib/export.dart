@@ -1,74 +1,60 @@
 import 'dart:io';
-
-
-class Connection {
-
-  // lifeline source
-  String name = '';
-
-  // lifeline destination
-  String connectionOutName = '';
-
-  // connection text to destination
-  String connectionOutText = '';
-
-  //connection text to source
-  String connectionInText = '';
-
-  // arrow style
-  String arrowStyle = '';
-}
-
+import 'model.dart' as model;  
 
             // Diagram length
-void export(List<Connection> connections){
+void export(model.Diagram diagram) {
   File file = File("p.puml");
-  // start uml
   file.writeAsStringSync('@startuml\n');
 
+  //write participants names
+  for (var lifeline in diagram.lifelines) {
+    file.writeAsStringSync('participant ${lifeline.title}\n');
+  }
+  file.writeAsStringSync('\n');  
 
 // for diagram length/how many connections
-  for (var i= 0; i < connections.length; i++) {
+  for (var i = 0; i < diagram.connections.length; i++) {
 
-    //write participants names
-    /*
-    for(var i=0; i < lifeline names; i++) {
-      file.writeAsStringSync('participant ${lifeline name[i]}');
-    }
-    file.writeAsStringSync('\n');
-    */
+    // lifeline source
+    String name = diagram.connections[i].src.title; 
 
-    // write lifeline source name | 'Alice'
-    file.writeAsStringSync(connections[i].name);
+    // lifeline destination
+    String connectionOutName = diagram.connections[i].dest.title; 
 
-    // writes arrow style and lifeline dest name | ' -> Bob'
-    file.writeAsStringSync(' ${connections[i].arrowStyle} ${connections[i].connectionOutName}');
+    // connection text to destination
+    String connectionOutText = diagram.connections[i].title; 
 
-    // tests to see if theres a name for the connection text and writes | ': Authentication Request'
+    //connection text to source
+    String connectionInText = '';  
+
+    // arrow style
+    String arrowStyle = ''; 
+
+    // write lifeline source name | 'Alice', arrow style and lifeline dest name | ' -> Bob'
     try {
-      file.writeAsStringSync(': ${connections[i].connectionOutText}\n');
-    } catch(e) {
-      continue;
-    }
-
-    // tests for a lifeline destination and text and writes
-    try {
-      // writes lifeline dest name | 'Bob'
-      file.writeAsStringSync(connections[i].name);
-      // write arrow style and lifeline source | ' <-- Alice'
-      file.writeAsStringSync(' ${connections[i].arrowStyle} ${connections[i].connectionOutName}');
-      
-      // tests to write connection text and write | ': Authentication Response'
+      file.writeAsStringSync('$name $arrowStyle $connectionOutName');
+      // tests to see if theres a name for the connection text and writes | ': Authentication Request'
       try {
-        file.writeAsStringSync(': ${connections[i].connectionOutText}\n');
-      } catch(e) {
+        file.writeAsStringSync(': $connectionOutText\n');
+      } catch (e) {
         continue;
       }
 
-    } catch(e) {
+      //tests (writes lifeline dest name | 'Bob') and (write arrow style and lifeline source | ' <-- Alice')
+      try {
+        file.writeAsStringSync('$connectionOutName $arrowStyle $name');
+        // tests to write connection text and write | ': Authentication Response'
+        try {
+          file.writeAsStringSync(': $connectionOutText\n');  
+        } catch (e) {
+          continue;
+        }
+      } catch (e) {
+        continue;
+      }
+    } catch (e) {
       continue;
     }
-    // 
   }
 
   // writes enduml
