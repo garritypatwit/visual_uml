@@ -31,7 +31,35 @@ class _DiagramViewState extends State<DiagramView> {
             });
           }
         ),
+        ReorderableListView.builder(
+          itemCount: widget.controller.connectionCount() + 1,
+          itemBuilder: (BuildContext context, int index) {
+            final connection = widget.controller.getConnection(index);
+            return Container();
+          },
+          onReorder: (int oldIndex, int newIndex) {
+            setState(() {
+              
+            });
+          },
+        ),
       ]
     );
+  }
+}
+
+class LifelineView extends StatefulWidget {
+  const LifelineView({
+    super.key,
+  });
+
+  @override
+  State<LifelineView> createState() => _LifelineViewState();
+}
+
+class _LifelineViewState extends State<LifelineView> {
+  @override
+  Widget build(BuildContext context) {
+    return Card();
   }
 }
