@@ -28,7 +28,7 @@ void export(model.Diagram diagram) {
     String connectionInText = '';  
 
     // arrow style
-    String arrowStyle = ''; 
+    String arrowStyle = '->'; 
 
     // write lifeline source name | 'Alice', arrow style and lifeline dest name | ' -> Bob'
     try {
