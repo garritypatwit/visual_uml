@@ -15,6 +15,12 @@ class Lifeline {
   });
 
   String title;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+    };
+  }
 }
 
 class Connection {
@@ -27,4 +33,12 @@ class Connection {
   String title;
   Lifeline src;
   Lifeline dest;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'srcTitle': src.title,
+      'destTitle': dest.title,
+    };
+  }
 }

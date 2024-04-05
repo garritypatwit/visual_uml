@@ -28,16 +28,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Visual UML'),
-      ),
-      body: DiagramView(controller: controller),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {controller.addLifeline("title");},
-        child: const Icon(Icons.add),
-      ),
-    );
+    return MainView();
   }
 }
