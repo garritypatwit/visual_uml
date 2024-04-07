@@ -38,7 +38,9 @@ class Connection {
     return {
       'title': title,
       'srcTitle': src.title,
+      'srcHash': src.hashCode,
       'destTitle': dest.title,
+      'destHash': dest.hashCode,
     };
   }
 }
