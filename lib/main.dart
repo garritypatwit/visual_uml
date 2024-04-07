@@ -4,11 +4,11 @@ import 'package:visual_uml/view.dart';
 
 
 void main() {
-  runApp(VisualUML());
+  runApp(const VisualUML());
 }
 
 class VisualUML extends StatelessWidget {
-  VisualUML({super.key});
+  const VisualUML({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,8 @@ class VisualUML extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  HomePage({super.key});
+  
   final DiagramController controller = DiagramController();
 
   @override
