@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'model.dart';
 
-class DiagramController {
+class DiagramController with ChangeNotifier{
   Diagram diagram = Diagram();
 
   void addLifeline(String title) {
@@ -36,6 +37,7 @@ class DiagramController {
 
   void insertConnection(int index, int srcIndex, int destIndex) {
     diagram.connections.insert(index, Connection(src: diagram.lifelines[srcIndex], dest: diagram.lifelines[destIndex]));
+    notifyListeners();
   }
 
   void removeConnection(int index) {
@@ -55,5 +57,21 @@ class DiagramController {
     }
     final Connection item = diagram.connections.removeAt(oldIndex);
     diagram.connections.insert(newIndex, item);
+  }
+}
+
+class LifelineController {
+  LifelineController ({
+    required this.lifeline,
+  });
+
+  Lifeline lifeline;
+
+  String getTitle() {
+    return lifeline.title;
+  }
+
+  void renameLifeline(String newTitle) {
+    lifeline.title = newTitle;
   }
 }
