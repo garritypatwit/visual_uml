@@ -199,7 +199,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                         height: 20,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.red,
+                          color: Colors.lightGreen,
                         ),
                         child: const Icon(size: 15,Icons.add),
                       ),
@@ -208,7 +208,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                         height: 20,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.red,
+                          color: Colors.lightGreen,
                         ),
                         child: const Icon(size: 15,Icons.add),
                       ),
@@ -217,7 +217,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                         height: 20,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.red,
+                          color: Colors.lightGreen,
                         ),
                         child: const Icon(size: 15,Icons.add),
                       ),
@@ -254,7 +254,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                         height: 10,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.green,
+                          color: Colors.lightBlue,
                         ),
                       ),
                     ),
