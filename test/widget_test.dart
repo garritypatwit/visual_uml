@@ -1,9 +1,12 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'package:flutter_test/flutter_test.dart';
+import 'package:visual_uml/controller.dart';
 
 void main() {
+  test('Test lifeline reorder', () {
+    DiagramController controller = DiagramController();
+    controller.addLifeline('Alice');
+    controller.addLifeline('Bob');
+    controller.reorderLifelines(0, 2);
+    expect(controller.getLifeline(1).toMap()['title'], 'Alice');
+  });
 }
