@@ -8,55 +8,40 @@ void export(model.Diagram diagram) {
 
   //write participants names
   for (var lifeline in diagram.lifelines) {
-    file.writeAsStringSync('participant ${lifeline.title}\n');
+    file.writeAsStringSync('participant ${lifeline.title}\n', mode: FileMode.append);
   }
-  file.writeAsStringSync('\n');  
+  file.writeAsStringSync('\n', mode: FileMode.append);  
 
 // for diagram length/how many connections
-  for (var i = 0; i < diagram.connections.length; i++) {
+  for (var connection in diagram.connections) {
 
     // lifeline source
-    String name = diagram.connections[i].src.title; 
+    String name = connection.src.title; 
 
     // lifeline destination
-    String connectionOutName = diagram.connections[i].dest.title; 
+    String connectionOutName = connection.dest.title; 
 
-    // connection text to destination
-    String connectionOutText = diagram.connections[i].title; 
-
-    //connection text to source
-    String connectionInText = '';  
+    // connection message
+    String connectionMessage = connection.title; 
 
     // arrow style
     String arrowStyle = '->'; 
 
     // write lifeline source name | 'Alice', arrow style and lifeline dest name | ' -> Bob'
     try {
-      file.writeAsStringSync('$name $arrowStyle $connectionOutName');
+      file.writeAsStringSync('$name $arrowStyle $connectionOutName', mode: FileMode.append);
       // tests to see if theres a name for the connection text and writes | ': Authentication Request'
       try {
-        file.writeAsStringSync(': $connectionOutText\n');
+        file.writeAsStringSync(': $connectionMessage\n', mode: FileMode.append);
       } catch (e) {
         continue;
       }
 
-      //tests (writes lifeline dest name | 'Bob') and (write arrow style and lifeline source | ' <-- Alice')
-      try {
-        file.writeAsStringSync('$connectionOutName $arrowStyle $name');
-        // tests to write connection text and write | ': Authentication Response'
-        try {
-          file.writeAsStringSync(': $connectionOutText\n');  
-        } catch (e) {
-          continue;
-        }
-      } catch (e) {
-        continue;
-      }
     } catch (e) {
       continue;
     }
   }
 
   // writes enduml
-  file.writeAsStringSync('@enduml\n');
+  file.writeAsStringSync('@enduml\n', mode: FileMode.append);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:visual_uml/export.dart';
 import 'package:widget_arrows/widget_arrows.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'controller.dart';
@@ -21,6 +22,15 @@ class _MainViewState extends State<MainView> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Visual UML'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.save),
+            tooltip: 'Save',
+            onPressed: () {
+              export(widget.controller.diagram);
+            },
+          ),
+        ],
       ),
       body: DiagramView(controller: widget.controller),
       floatingActionButton: FloatingActionButton(
